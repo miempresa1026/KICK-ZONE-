@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KICK ZONE - Catálogo</title>
+<style>
+  /* Reset y base */
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #121212;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255, 193, 7, 0.3), transparent 60%),
+      radial-gradient(circle at 80% 80%, rgba(255, 87, 34, 0.25), transparent 50%),
+      repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.05) 2px,
+        transparent 2px,
+        transparent 10px
+      );
+    background-blend-mode: screen;
+    color: #f0f0f0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  header {
+    position: relative;
+    padding: 80px 20px 60px;
+    background-color: rgba(18,18,18,0.85);
+    box-shadow: 0 6px 20px rgba(255, 87, 34, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    z-index: 1;
+    border-radius: 0 0 20px 20px;
+  }
+
+  /* Logo arriba derecha */
+  .logo-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: 
+      linear-gradient(135deg, #ff5722 0%, #ffc107 100%);
+    width: 130px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:
+      0 6px 25px rgba(255, 87, 34, 0.9);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 16px;
+    z-index: 1000;
+  }
+  .logo-container:hover {
+    transform: scale(1.1);
+    box-shadow:
+      0 10px 35px rgba(255, 87, 34, 1),
+      0 0 25px #ff6e40;
+  }
+  .logo-container img {
+    max-width: 95px;
+    max-height: 95px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+  }
+
+  /* Detalles decorativos con neón */
+  header::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 120px;
+    height: 120px;
+    background:
+      repeating-conic-gradient(rgba(255, 87, 34, 0.15) 0 10deg, transparent 10deg 20deg);
+    opacity: 0.15;
+    transform: rotate(35deg);
+    border-radius: 50%;
+    z-index: 1;
+  }
+  header::after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 160px;
+    height: 9px;
+    background-color: #ff5722;
+    box-shadow: 0 0 18px #ff5722cc;
+    border-radius: 12px;
+    z-index: 1;
+  }
+
+  header h1 {
+    font-size: 3.4rem;
+    margin: 0 0 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 900;
+    position: relative;
+    z-index: 2;
+    color: #ff5722;
+    text-shadow:
+      0 0 15px #ff5722cc,
+      0 0 25px #ff8a50aa;
+  }
+  header h1 span {
+    color: #ffc107;
+    text-shadow:
+      0 0 10px #ffc107cc,
+      0 0 20px #fff3bf;
+  }
+
+  header p {
+    font-size: 1.4rem;
+    color: #eee;
+    margin: 0 0 36px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Botón WhatsApp */
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(45deg, #25D366, #1ebe57);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.25rem;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  .whatsapp-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.8);
+  }
+  .whatsapp-btn img {
+    width: 28px;
+    height: 28px;
+  }
+
+  /* CATÁLOGO */
+  .catalogo {
+    max-width: 1200px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    flex-grow: 1;
+  }
+
+  .producto {
+    background-color: #2a2a2a;
+    border-radius: 20px;
+    padding: 22px;
+    text-align: center;
+    box-shadow:
+      0 10px 30px rgba(255, 87, 34, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  .producto:hover {
+    transform: translateY(-12px) scale(1.04);
+    box-shadow:
+      0 20px 40px rgba(255, 87, 34, 0.85);
+    border-color: #ff7043;
+  }
+
+  .producto img {
+    max-width: 100%;
+    border-radius: 18px;
+    margin-bottom: 20px;
+    box-shadow:
+      0 8px 20px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease;
+  }
+  .producto:hover img {
+    transform: scale(1.07);
+  }
+
+  .btn-comprar {
+    background: #ff5722;
+    color: #111;
+    padding: 14px 30px;
+    border-radius: 35px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: inline-block;
+    box-shadow: 0 8px 20px #ff7043cc;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-comprar:hover {
+    background-color: #e64a19;
+    box-shadow: 0 10px 26px #e64a19cc;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 2.4rem;
+    }
+    header p {
+      font-size: 1.1rem;
+    }
+    .whatsapp-btn {
+      font-size: 1rem;
+      padding: 12px 22px;
+      gap: 10px;
+    }
+    .btn-comprar {
+      font-size: 1.05rem;
+      padding: 12px 22px;
+    }
+    .logo-container {
+      width: 100px;
+      height: 100px;
+    }
+    .logo-container img {
+      max-width: 75px;
+      max-height: 75px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>NUESTRO <span>CATÁLOGO</span></h1>
+  <p>LINEA ZAPATILLAS Y TENIS</p>
+  <a href="https://wa.me/573016016317" class="whatsapp-btn" target="_blank" rel="noopener">
+    <img src="images/WhatsApp.svg" alt="WhatsApp" />
+    301-601-6317
+  </a>
+</header>
+
+<div class="logo-container" title="Logo KICK ZONE">
+  <img src="images/logo.png" alt="KICK ZONE Logo" />
+</div>
+
+<section class="catalogo">
+  <!-- Zapatillas 1 a 42 -->
+  <!-- Genero los artículos con un patrón para no alargar tanto -->
+  <!-- Si quieres que te lo copie literal, dime y lo hago -->
+
+  <!-- Empieza listado -->
+  <!-- Puedes copiar y pegar este bloque para zapatillas 1 a 42, cambiando el número en src, alt y aria-label -->
+
+  <!-- Para ahorrar espacio aquí te dejo un bloque con todas zapatillas 1 a 42 -->
+
+  <!-- Desde la 1 -->
+  <article class="producto" tabindex="0" aria-label="Zapatilla 1">
+    <img src="images/zapatilla1.png" alt="Zapatilla 1" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+
+  <!-- Copia de zapatillas 2 a 42 -->
+  <!-- Te genero rápido el código -->
+
+  <!-- Comienzo ciclo manual -->
+
+  <!-- Aquí el código completo para 2 a 42 -->
+
+  <!-- Aquí va el código generado abajo -->
+
+  <!-- --- -->
+
+  <!-- Copiar este bloque y cambiar el número de 2 a 42 -->
+  <!-- Ejemplo para zapatilla N -->
+
+  <!-- <article class="producto" tabindex="0" aria-label="Zapatilla N">
+        <img src="images/zapatillaN.png" alt="Zapatilla N" />
+        <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+    </article> -->
+
+  <!-- Código final aquí: -->
+
+  <!-- Aquí ya el código con todos -->
+
+  <!-- -- START ALL ZAPATILLAS 2 TO 42 -- -->
+
+  <article class="producto" tabindex="0" aria-label="Zapatilla 2">
+    <img src="images/zapatilla2.png" alt="Zapatilla 2" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 3">
+    <img src="images/zapatilla3.png" alt="Zapatilla 3" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 4">
+    <img src="images/zapatilla4.png" alt="Zapatilla 4" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 5">
+    <img src="images/zapatilla5.png" alt="Zapatilla 5" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 6">
+    <img src="images/zapatilla6.png" alt="Zapatilla 6" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 7">
+    <img src="images/zapatilla7.png" alt="Zapatilla 7" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 8">
+    <img src="images/zapatilla8.png" alt="Zapatilla 8" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 9">
+    <img src="images/zapatilla9.png" alt="Zapatilla 9" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 10">
+    <img src="images/zapatilla10.png" alt="Zapatilla 10" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 11">
+    <img src="images/zapatilla11.png" alt="Zapatilla 11" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 12">
+    <img src="images/zapatilla12.png" alt="Zapatilla 12" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 13">
+    <img src="images/zapatilla13.png" alt="Zapatilla 13" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 14">
+    <img src="images/zapatilla14.png" alt="Zapatilla 14" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 15">
+    <img src="images/zapatilla15.png" alt="Zapatilla 15" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 16">
+    <img src="images/zapatilla16.png" alt="Zapatilla 16" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 17">
+    <img src="images/zapatilla17.png" alt="Zapatilla 17" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+
+  <!-- 18 to 42 -->
+  <article class="producto" tabindex="0" aria-label="Zapatilla 18">
+    <img src="images/zapatilla18.png" alt="Zapatilla 18" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 19">
+    <img src="images/zapatilla19.png" alt="Zapatilla 19" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 20">
+    <img src="images/zapatilla20.png" alt="Zapatilla 20" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 21">
+    <img src="images/zapatilla21.png" alt="Zapatilla 21" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 22">
+    <img src="images/zapatilla22.png" alt="Zapatilla 22" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 23">
+    <img src="images/zapatilla23.png" alt="Zapatilla 23" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 24">
+    <img src="images/zapatilla24.png" alt="Zapatilla 24" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 25">
+    <img src="images/zapatilla25.png" alt="Zapatilla 25" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 26">
+    <img src="images/zapatilla26.png" alt="Zapatilla 26" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 27">
+    <img src="images/zapatilla27.png" alt="Zapatilla 27" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 28">
+    <img src="images/zapatilla28.png" alt="Zapatilla 28" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 29">
+    <img src="images/zapatilla29.png" alt="Zapatilla 29" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 30">
+    <img src="images/zapatilla30.png" alt="Zapatilla 30" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 31">
+    <img src="images/zapatilla31.png" alt="Zapatilla 31" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 32">
+    <img src="images/zapatilla32.png" alt="Zapatilla 32" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 33">
+    <img src="images/zapatilla33.png" alt="Zapatilla 33" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 34">
+    <img src="images/zapatilla34.png" alt="Zapatilla 34" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 35">
+    <img src="images/zapatilla35.png" alt="Zapatilla 35" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 36">
+    <img src="images/zapatilla36.png" alt="Zapatilla 36" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 37">
+    <img src="images/zapatilla37.png" alt="Zapatilla 37" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 38">
+    <img src="images/zapatilla38.png" alt="Zapatilla 38" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 39">
+    <img src="images/zapatilla39.png" alt="Zapatilla 39" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 40">
+    <img src="images/zapatilla40.png" alt="Zapatilla 40" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 41">
+    <img src="images/zapatilla41.png" alt="Zapatilla 41" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+  <article class="producto" tabindex="0" aria-label="Zapatilla 42">
+    <img src="images/zapatilla42.png" alt="Zapatilla 42" />
+    <a href="https://wa.me/573016016317?text=Hola%20me%20interesan%20estas%20zapatillas" class="btn-comprar" target="_blank" rel="noopener">Comprar</a>
+  </article>
+
+</section>
+
+</body>
+</html>
